@@ -22,6 +22,7 @@
     - email    : powturbo [_AT_] gmail [_DOT_] com
 **/
 // Turbo-Base64: Scalar encode
+#include <stdlib.h>
 #include "turbob64_.h"
 #include "turbob64.h"
 

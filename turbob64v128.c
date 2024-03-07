@@ -23,6 +23,7 @@
 **/
 //  Turbo-Base64: ssse3 + arm neon functions (see also turbob64v256)
 
+#include <stdlib.h>
 #include <string.h>
 
   #if defined(__AVX__)
