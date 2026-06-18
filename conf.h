@@ -274,6 +274,7 @@ struct _PACKED doubleu   { double             d; };
     defined(__x86_64__) || defined(_M_X64) ||\
     defined(__ia64) || defined(_M_IA64) ||\
     defined(__aarch64__) ||\
+    defined(__riscv) && __riscv_xlen == 64 ||\
     defined(__mips64) ||\
     defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) ||\
     defined(__s390x__)
