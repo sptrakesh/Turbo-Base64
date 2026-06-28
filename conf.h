@@ -172,7 +172,7 @@ static ALWAYS_INLINE double round(double num) { return (num > 0.0) ? floor(num +
 #define popcnt16(x)  popcnt32(x)
 
 //--------------- Unaligned memory access -------------------------------------
-  #ifdef UA_MEMCPY
+  #if defined(UA_MEMCPY) || defined(__riscv)
 #include <string.h>
 static ALWAYS_INLINE unsigned short     ctou16(const void *cp) { unsigned short     x; memcpy(&x, cp, sizeof(x)); return x; } // ua read
 static ALWAYS_INLINE unsigned           ctou32(const void *cp) { unsigned           x; memcpy(&x, cp, sizeof(x)); return x; }
@@ -270,16 +270,19 @@ struct _PACKED doubleu   { double             d; };
 #define ctou48(_cp_) (ctou64(_cp_) & 0xffffffffffffull)
 #define ctou8(_cp_) (*(_cp_))
 //--------------------- wordsize ----------------------------------------------
-  #if defined(__64BIT__) || defined(_LP64) || defined(__LP64__) || defined(_WIN64) ||\
-    defined(__x86_64__) || defined(_M_X64) ||\
-    defined(__ia64) || defined(_M_IA64) ||\
-    defined(__aarch64__) ||\
-    defined(__mips64) ||\
-    defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) ||\
-    defined(__s390x__)
-#define __WORDSIZE 64
-  #else
-#define __WORDSIZE 32
+  #ifndef __WORDSIZE
+    #if defined(__64BIT__) || defined(_LP64) || defined(__LP64__) || defined(_WIN64) ||\
+      defined(__x86_64__) || defined(_M_X64) ||\
+      defined(__ia64) || defined(_M_IA64) ||\
+      defined(__aarch64__) ||\
+      defined(__riscv) && __riscv_xlen == 64 ||\
+      defined(__mips64) ||\
+      defined(__powerpc64__) || defined(__ppc64__) || defined(__PPC64__) ||\
+      defined(__s390x__)
+  #define __WORDSIZE 64
+    #else
+  #define __WORDSIZE 32
+    #endif
   #endif
 #endif
 

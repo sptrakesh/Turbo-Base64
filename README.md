@@ -19,6 +19,10 @@
  * Ready and simple to use library, no armada of files, no hassles dependencies
  * **LICENSE GPL 3** . Commercial license available. Contact us at powturbo [_AT_] gmail [_DOT_] com
 <p>
+
+For `riscv64`, the current portability path uses the scalar core together with
+the generic `turbob64v128.c` build, without x86 runtime dispatch or a dedicated
+RVV backend.
 	
 ------------------------------------------------------------------------
 	
