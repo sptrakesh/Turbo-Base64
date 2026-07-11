@@ -33,6 +33,10 @@ else
 
 ifneq (,$(findstring aarch64,$(CC)))
   ARCH = aarch64
+else ifneq (,$(findstring riscv64,$(CC)))
+  ARCH = riscv64
+else ifneq (,$(findstring riscv32,$(CC)))
+  ARCH = riscv32
 else ifneq (,$(findstring arm64,$(ARCH)))
   ARCH = aarch64
 else ifneq (,$(findstring powerpc64le,$(CC)))
@@ -49,6 +53,9 @@ ifneq (,$(findstring clang, $(CC)))
   CFLAGS+=-fomit-frame-pointer
 endif
   MSSE=-march=armv8-a
+else ifneq ($(filter riscv%,$(ARCH)),)
+  MARCH=
+  MSSE=
 else ifeq ($(ARCH),$(filter $(ARCH),x86_64 ppc64le))
   MSSE=-mssse3
 endif
